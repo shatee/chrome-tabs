@@ -9,4 +9,13 @@ export const manifest = defineManifest({
     default_popup: 'index.html',
   },
   permissions: ['history', 'tabs'],
+  commands: {
+    'open-popup': {
+      suggested_key: {
+        default: 'Ctrl+Shift+A',
+        mac: 'Command+Shift+A',
+      },
+      description: 'Open Extension Popup',
+    },
+  },
 });
