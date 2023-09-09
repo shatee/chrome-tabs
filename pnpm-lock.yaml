@@ -31,6 +31,9 @@ devDependencies:
   '@vitejs/plugin-react':
     specifier: ^4.0.3
     version: 4.0.4(vite@4.4.9)
+  chrome-types:
+    specifier: ^0.1.231
+    version: 0.1.231
   eslint:
     specifier: ^8.45.0
     version: 8.49.0
@@ -963,6 +966,10 @@ packages:
       htmlparser2: 8.0.2
       parse5: 7.1.2
       parse5-htmlparser2-tree-adapter: 7.0.0
+    dev: true
+
+  /chrome-types@0.1.231:
+    resolution: {integrity: sha512-h3bavs+tROAeGE2pLJckJNQzFU5HN2yYEKEG+2byq1+MWrycBYxklCl6gRaI3Jjeyn1DzTTrFToOvdRCQfc/kg==}
     dev: true
 
   /cli-cursor@4.0.0:
