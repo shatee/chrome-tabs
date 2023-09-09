@@ -8,4 +8,5 @@ export const manifest = defineManifest({
   action: {
     default_popup: 'index.html',
   },
+  permissions: ['history', 'tabs'],
 });

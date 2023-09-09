@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useAtom } from 'jotai';
+import React, { useCallback, useTransition } from 'react';
+import './App.css';
+import { searchWordAtom } from './atoms/searchWordAtom';
+import { browserHistoryAtom } from './atoms/browserHistoryAtom';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [searchWord, setSearchWord] = useAtom(searchWordAtom);
+
+  const [histories] = useAtom(browserHistoryAtom);
+
+  const [, startTransition] = useTransition();
+
+  const onSearchInputChange = useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    startTransition(() => {
+      setSearchWord(e.currentTarget.value);
+    });
+  }, []);
 
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <input type="text" onInput={onSearchInputChange} />
+        <ul>
+          {histories.map((history) => (
+            <li>
+              <p>{history.title}</p>
+              <p>{history.url}</p>
+            </li>
+          ))}
+        </ul>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
