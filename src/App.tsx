@@ -1,11 +1,12 @@
 import { useAtom } from 'jotai';
-import React, { useCallback, useEffect, useRef, useTransition } from 'react';
+import React, { useCallback, useEffect, useRef, useState, useTransition } from 'react';
 import './App.css';
 import { searchWordAtom } from './atoms/searchWordAtom';
 import { browserHistoryAtom } from './atoms/browserHistoryAtom';
 import { browserTabAtom } from './atoms/browserTabAtom';
 import { List } from './components/List';
 import { SearchForm } from './components/SearchForm';
+import { lastActiveTabTimesAtom } from './atoms/lastActiveTabTimesAtom';
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -14,6 +15,7 @@ function App() {
 
   const [tabs] = useAtom(browserTabAtom);
   const [histories] = useAtom(browserHistoryAtom);
+  const [lastActiveTabTimes, setLastActiveTabTimes] = useAtom(lastActiveTabTimesAtom);
 
   const [, startTransition] = useTransition();
 
@@ -25,6 +27,18 @@ function App() {
 
   const openTab = useCallback((tabId: number) => {
     chrome.tabs.update(tabId, { active: true });
+  }, []);
+
+  const [lastTabId, setLastTabId] = useState<number>();
+  useEffect(() => {
+    chrome.tabs.onActivated.addListener(async (activeInfo) => {
+      if (!lastTabId) return;
+      // setLastActiveTabTimes({
+      //   ...lastActiveTabTimes,
+      //   [`${lastTabId}`]: Date.now()
+      // });
+      setLastTabId(activeInfo.tabId);
+    });
   }, []);
 
   // focus input when opened
