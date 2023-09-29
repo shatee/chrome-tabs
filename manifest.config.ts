@@ -8,7 +8,7 @@ export const manifest = defineManifest({
   action: {
     default_popup: 'index.html',
   },
-  permissions: ['history', 'tabs', 'storage'],
+  permissions: ['bookmarks', 'history', 'tabs', 'storage'],
   commands: {
     _execute_action: {
       suggested_key: {
