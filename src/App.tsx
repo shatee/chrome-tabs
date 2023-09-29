@@ -19,13 +19,13 @@ function App() {
   const [bookmarks] = useAtom(browserBookmarkAtom);
   const [lastActiveTabTimes, setLastActiveTabTimes] = useAtom(lastActiveTabTimesAtom);
 
-  const [index, setIndex] = useState(-1);
+  const [index, setIndex] = useState(0);
 
   const [, startTransition] = useTransition();
 
   // reset index when searchWord changed
   useEffect(() => {
-    setIndex(-1);
+    setIndex(0);
   }, [searchWord]);
 
   const onSearchInputChange = useCallback(() => {
