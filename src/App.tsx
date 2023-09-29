@@ -23,6 +23,7 @@ function App() {
 
   const [, startTransition] = useTransition();
 
+  // reset index when searchWord changed
   useEffect(() => {
     setIndex(-1);
   }, [searchWord]);
