@@ -38,6 +38,7 @@ function App() {
     if (typeof item.id === 'number') {
       // tab
       chrome.tabs.update(item.id, { active: true });
+      chrome.windows.update((item as chrome.tabs.Tab).windowId, { focused: true });
     } else {
       // history, bookmark
       chrome.tabs.create({ url: item.url });
